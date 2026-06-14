@@ -1,0 +1,51 @@
+body {
+  width: 280px;
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  font-size: 13px;
+  color: #333;
+}
+
+.popup-container {
+  padding: 16px;
+}
+
+h1 {
+  font-size: 16px;
+  margin: 0 0 12px;
+}
+
+.info {
+  margin-bottom: 8px;
+}
+
+.label {
+  display: block;
+  font-size: 11px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+
+.value {
+  display: block;
+  font-size: 13px;
+  word-break: break-all;
+}
+
+button {
+  width: 100%;
+  padding: 8px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
