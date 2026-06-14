@@ -53,6 +53,6 @@ describe('storage', () => {
     mockStorage['config'] = { ...DEFAULT_CONFIG, counter: 5 };
     const value = await incrementCounter();
     expect(value).toBe(5);
-    expect(mockStorage['config'].counter).toBe(6);
+    expect((mockStorage['config'] as Record<string, unknown>).counter).toBe(6);
   });
 });

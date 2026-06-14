@@ -7,10 +7,14 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "outDir": "dist",
-    "rootDir": "src",
+    "rootDir": ".",
     "declaration": true,
     "sourceMap": true,
-    "lib": ["ES2022", "DOM", "DOM.Iterable"]
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": ["chrome-types"],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["src/**/*", "tests/**/*"]
 }
