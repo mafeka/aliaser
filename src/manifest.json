@@ -21,6 +21,12 @@
       "128": "icons/icon-128.png"
     }
   },
+  "commands": {
+    "generate-email": {
+      "suggested_key": {},
+      "description": "Generate email address for focused field"
+    }
+  },
   "options_page": "options/options.html",
   "icons": {
     "16": "icons/icon-16.png",

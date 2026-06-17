@@ -71,11 +71,21 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   });
 });
 
+// Handle keyboard shortcut commands
+chrome.commands.onCommand.addListener(async (command, tab) => {
+  if (command === 'generate-email' && tab?.id) {
+    chrome.tabs.sendMessage(tab.id, { type: 'mailfill:trigger-popup' });
+  }
+});
+
 // Handle messages from content script requesting address generation
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message.type === 'mailfill:generate') {
     handleGenerate(message.url, message.templateOverride).then(sendResponse);
     return true; // async response
+  }
+  if (message.type === 'mailfill:open-options') {
+    chrome.runtime.openOptionsPage();
   }
 });
 
