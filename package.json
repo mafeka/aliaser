@@ -10,7 +10,8 @@
     "dev": "vite",
     "build": "vite build",
     "test": "vitest",
-    "test:run": "vitest run"
+    "test:run": "vitest run",
+    "build:firefox": "vite build && node scripts/build-firefox.mjs"
   },
   "keywords": [],
   "author": "",

@@ -1,0 +1,10 @@
+{
+  "background": {
+    "scripts": ["background/service-worker.js"]
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "mailfill@extension"
+    }
+  }
+}
