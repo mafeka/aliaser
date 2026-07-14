@@ -27,21 +27,34 @@ newsletter-{{domain}}-{{counter}}@{{mailDomain}}
 {{domain}}-{{random:12}}@{{mailDomain}}
 ```
 
+## Install
+
+Download the latest release from [GitHub Releases](https://github.com/mafeka/aliaser/releases):
+
+- **Chrome:** `aliaser-<version>-chrome.zip` — unzip and load via `chrome://extensions` (Developer mode → Load unpacked)
+- **Firefox:** `aliaser-<version>-firefox.xpi` — open the file in Firefox or drag it into a Firefox window
+
 ## Development
+
+Requires [Task](https://taskfile.dev) as the task runner.
 
 ```bash
 npm install
-npm run dev          # Vite dev server
-npm run build        # Chrome build → dist/
-npm run build:firefox # Firefox build → dist-firefox/
-npm run test:run     # Run all tests
+task dev             # Vite dev server
+task build           # Chrome build → dist/chrome/
+task build:firefox   # Firefox build → dist/firefox/
+task build:all       # Build both browsers
+task package         # Build + create .zip and .xpi in dist/
+task test:run        # Run all tests
+task check           # Typecheck + tests
+task release -- X.Y.Z  # Bump version, commit, tag, push
 ```
 
-## Loading the Extension
+## Loading for Development
 
-**Chrome:** Go to `chrome://extensions`, enable Developer mode, click "Load unpacked", select the `dist/` directory.
+**Chrome:** Go to `chrome://extensions`, enable Developer mode, click "Load unpacked", select `dist/chrome/`.
 
-**Firefox:** Go to `about:debugging#/runtime/this-firefox`, click "Load Temporary Add-on", select any file in `dist-firefox/`.
+**Firefox:** Go to `about:debugging#/runtime/this-firefox`, click "Load Temporary Add-on", select any file in `dist/firefox/`.
 
 ## Disclaimer
 
