@@ -39,16 +39,16 @@ observer.observe(document.body, {
 
 // Listen for insert messages from background (context menu path)
 chrome.runtime.onMessage.addListener((message) => {
-  if (message.type === 'mailfill:insert') {
+  if (message.type === 'aliaser:insert') {
     const active = document.activeElement;
     if (active instanceof HTMLInputElement) {
       injectValue(active, message.address);
     }
   }
-  if (message.type === 'mailfill:trigger-popup') {
+  if (message.type === 'aliaser:trigger-popup') {
     const active = document.activeElement;
     if (active instanceof HTMLInputElement && overlaidFields.has(active)) {
-      active.dispatchEvent(new CustomEvent('mailfill:open', { bubbles: true }));
+      active.dispatchEvent(new CustomEvent('aliaser:open', { bubbles: true }));
     }
   }
 });

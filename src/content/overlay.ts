@@ -17,7 +17,7 @@ export function attachOverlay(field: HTMLInputElement): void {
         transform: translateY(-50%);
         z-index: 2147483647;
       }
-      .mailfill-icon {
+      .aliaser-icon {
         cursor: pointer;
         opacity: 0.5;
         transition: opacity 0.15s;
@@ -26,11 +26,11 @@ export function attachOverlay(field: HTMLInputElement): void {
         padding: 2px;
         border-radius: 3px;
       }
-      .mailfill-icon:hover {
+      .aliaser-icon:hover {
         opacity: 1;
         background: rgba(0,0,0,0.05);
       }
-      .mailfill-popup {
+      .aliaser-popup {
         position: absolute;
         right: 0;
         top: calc(100% + 4px);
@@ -45,8 +45,8 @@ export function attachOverlay(field: HTMLInputElement): void {
         color: #333;
         display: none;
       }
-      .mailfill-popup.open { display: block; }
-      .mailfill-popup input {
+      .aliaser-popup.open { display: block; }
+      .aliaser-popup input {
         width: 100%;
         box-sizing: border-box;
         padding: 6px 8px;
@@ -55,7 +55,7 @@ export function attachOverlay(field: HTMLInputElement): void {
         font-size: 13px;
         margin: 4px 0;
       }
-      .mailfill-popup select {
+      .aliaser-popup select {
         width: 100%;
         padding: 6px 8px;
         border: 1px solid #ccc;
@@ -63,7 +63,7 @@ export function attachOverlay(field: HTMLInputElement): void {
         font-size: 13px;
         margin: 4px 0;
       }
-      .mailfill-popup button {
+      .aliaser-popup button {
         width: 100%;
         padding: 6px 12px;
         background: #2563eb;
@@ -74,29 +74,29 @@ export function attachOverlay(field: HTMLInputElement): void {
         font-size: 13px;
         margin-top: 4px;
       }
-      .mailfill-popup button:hover { background: #1d4ed8; }
-      .mailfill-popup label {
+      .aliaser-popup button:hover { background: #1d4ed8; }
+      .aliaser-popup label {
         font-size: 11px;
         color: #666;
         text-transform: uppercase;
         letter-spacing: 0.05em;
       }
     </style>
-    <div class="mailfill-icon">${ICON_SVG}</div>
-    <div class="mailfill-popup">
+    <div class="aliaser-icon">${ICON_SVG}</div>
+    <div class="aliaser-popup">
       <label>Preset</label>
-      <select class="mailfill-preset"></select>
+      <select class="aliaser-preset"></select>
       <label>Address</label>
-      <input class="mailfill-address" type="text" />
-      <button class="mailfill-fill">Fill</button>
+      <input class="aliaser-address" type="text" />
+      <button class="aliaser-fill">Fill</button>
     </div>
   `;
 
-  const icon = shadow.querySelector('.mailfill-icon') as HTMLElement;
-  const popup = shadow.querySelector('.mailfill-popup') as HTMLElement;
-  const addressInput = shadow.querySelector('.mailfill-address') as HTMLInputElement;
-  const presetSelect = shadow.querySelector('.mailfill-preset') as HTMLSelectElement;
-  const fillButton = shadow.querySelector('.mailfill-fill') as HTMLButtonElement;
+  const icon = shadow.querySelector('.aliaser-icon') as HTMLElement;
+  const popup = shadow.querySelector('.aliaser-popup') as HTMLElement;
+  const addressInput = shadow.querySelector('.aliaser-address') as HTMLInputElement;
+  const presetSelect = shadow.querySelector('.aliaser-preset') as HTMLSelectElement;
+  const fillButton = shadow.querySelector('.aliaser-fill') as HTMLButtonElement;
 
   async function openPopup(): Promise<void> {
     if (popup.classList.contains('open')) {
@@ -105,12 +105,12 @@ export function attachOverlay(field: HTMLInputElement): void {
     }
 
     const response = await chrome.runtime.sendMessage({
-      type: 'mailfill:generate',
+      type: 'aliaser:generate',
       url: window.location.href,
     });
 
     if (response.error === 'no-mail-domain') {
-      chrome.runtime.sendMessage({ type: 'mailfill:open-options' });
+      chrome.runtime.sendMessage({ type: 'aliaser:open-options' });
       return;
     }
 
@@ -135,7 +135,7 @@ export function attachOverlay(field: HTMLInputElement): void {
   });
 
   // Listen for keyboard shortcut trigger from detector.ts
-  field.addEventListener('mailfill:open', () => {
+  field.addEventListener('aliaser:open', () => {
     openPopup();
   });
 
@@ -143,7 +143,7 @@ export function attachOverlay(field: HTMLInputElement): void {
   presetSelect.addEventListener('change', async () => {
     const template = presetSelect.value || undefined;
     const response = await chrome.runtime.sendMessage({
-      type: 'mailfill:generate',
+      type: 'aliaser:generate',
       url: window.location.href,
       templateOverride: template,
     });

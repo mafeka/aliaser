@@ -19,7 +19,7 @@ async function rebuildContextMenu(): Promise<void> {
   await chrome.contextMenus.removeAll();
 
   chrome.contextMenus.create({
-    id: 'mailfill-default',
+    id: 'aliaser-default',
     title: 'Generate email address',
     contexts: ['editable'],
   });
@@ -27,8 +27,8 @@ async function rebuildContextMenu(): Promise<void> {
   const config = await getConfig();
   for (const preset of config.presets) {
     chrome.contextMenus.create({
-      id: `mailfill-preset-${preset.name}`,
-      parentId: 'mailfill-default',
+      id: `aliaser-preset-${preset.name}`,
+      parentId: 'aliaser-default',
       title: preset.name,
       contexts: ['editable'],
     });
@@ -38,7 +38,7 @@ async function rebuildContextMenu(): Promise<void> {
 // Handle context menu clicks
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   if (!tab?.id || !tab.url) return;
-  if (!info.menuItemId.toString().startsWith('mailfill')) return;
+  if (!info.menuItemId.toString().startsWith('aliaser')) return;
 
   const config = await getConfig();
   if (!config.mailDomain) {
@@ -47,7 +47,7 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   }
 
   let template = config.defaultTemplate;
-  const presetPrefix = 'mailfill-preset-';
+  const presetPrefix = 'aliaser-preset-';
   if (info.menuItemId.toString().startsWith(presetPrefix)) {
     const presetName = info.menuItemId.toString().slice(presetPrefix.length);
     const preset = config.presets.find((p) => p.name === presetName);
@@ -66,7 +66,7 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   const address = renderTemplate(template, ctx);
 
   chrome.tabs.sendMessage(tab.id, {
-    type: 'mailfill:insert',
+    type: 'aliaser:insert',
     address,
   });
 });
@@ -74,17 +74,17 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
 // Handle keyboard shortcut commands
 chrome.commands.onCommand.addListener(async (command, tab) => {
   if (command === 'generate-email' && tab?.id) {
-    chrome.tabs.sendMessage(tab.id, { type: 'mailfill:trigger-popup' });
+    chrome.tabs.sendMessage(tab.id, { type: 'aliaser:trigger-popup' });
   }
 });
 
 // Handle messages from content script requesting address generation
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
-  if (message.type === 'mailfill:generate') {
+  if (message.type === 'aliaser:generate') {
     handleGenerate(message.url, message.templateOverride).then(sendResponse);
     return true; // async response
   }
-  if (message.type === 'mailfill:open-options') {
+  if (message.type === 'aliaser:open-options') {
     chrome.runtime.openOptionsPage();
   }
 });

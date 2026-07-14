@@ -1,5 +1,5 @@
 {
-  "name": "mailfill",
+  "name": "aliaser",
   "version": "1.0.0",
   "description": "Generate unique email addresses per website",
   "main": "index.js",

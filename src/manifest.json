@@ -1,11 +1,12 @@
 {
   "manifest_version": 3,
-  "name": "Mailfill",
+  "name": "Aliaser",
   "version": "0.1.0",
   "description": "Generate unique email addresses per website",
   "permissions": ["storage", "contextMenus", "activeTab"],
   "background": {
-    "service_worker": "background/service-worker.ts"
+    "service_worker": "background/service-worker.ts",
+    "type": "module"
   },
   "content_scripts": [
     {
@@ -23,7 +24,9 @@
   },
   "commands": {
     "generate-email": {
-      "suggested_key": {},
+      "suggested_key": {
+        "default": "Alt+M"
+      },
       "description": "Generate email address for focused field"
     }
   },
