@@ -43,6 +43,10 @@ npm run test:run     # Run all tests
 
 **Firefox:** Go to `about:debugging#/runtime/this-firefox`, click "Load Temporary Add-on", select any file in `dist-firefox/`.
 
+## Disclaimer
+
+This project is 100% coded by agentic AI coders. All code, tests, and documentation were generated through AI-assisted development.
+
 ## License
 
 ISC
