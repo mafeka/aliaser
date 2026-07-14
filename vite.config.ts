@@ -19,12 +19,12 @@ function chromeExtensionPlugin() {
           js: cs.js.map((f: string) => f.replace(/\.ts$/, '.js')),
         }));
       }
-      writeFileSync('dist/manifest.json', JSON.stringify(manifest, null, 2));
+      writeFileSync('dist/chrome/manifest.json', JSON.stringify(manifest, null, 2));
 
       // Copy icons
-      mkdirSync('dist/icons', { recursive: true });
+      mkdirSync('dist/chrome/icons', { recursive: true });
       for (const size of [16, 48, 128]) {
-        copyFileSync(`src/icons/icon-${size}.png`, `dist/icons/icon-${size}.png`);
+        copyFileSync(`src/icons/icon-${size}.png`, `dist/chrome/icons/icon-${size}.png`);
       }
     },
   };
@@ -40,7 +40,7 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: resolve(__dirname, 'dist'),
+    outDir: resolve(__dirname, 'dist/chrome'),
     emptyOutDir: true,
     rollupOptions: {
       input: {

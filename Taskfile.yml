@@ -1,0 +1,60 @@
+version: '3'
+
+tasks:
+  dev:
+    desc: Start Vite dev server with HMR
+    cmd: npx vite
+
+  build:
+    desc: Build Chrome extension to dist/chrome/
+    cmd: npx vite build
+
+  build:firefox:
+    desc: Build Firefox extension to dist/firefox/
+    deps: [build]
+    cmd: node build/build-firefox.mjs
+
+  build:all:
+    desc: Build for all browsers
+    deps: [build]
+    cmds:
+      - node build/build-firefox.mjs
+
+  package:
+    desc: Build all browsers and create distributable archives
+    deps: [build:all]
+    cmd: node build/package.mjs
+
+  test:
+    desc: Run tests in watch mode
+    cmd: npx vitest
+
+  test:run:
+    desc: Run tests once
+    cmd: npx vitest run
+
+  typecheck:
+    desc: Run TypeScript type checking
+    cmd: npx tsc --noEmit
+
+  check:
+    desc: Run typecheck and tests
+    deps: [typecheck, test:run]
+
+  clean:
+    desc: Remove build artifacts
+    cmd: rm -rf dist
+
+  rebuild:
+    desc: Clean and rebuild
+    cmds:
+      - task: clean
+      - task: build
+
+  install:
+    desc: Install dependencies
+    cmd: npm install
+
+  release:
+    desc: "Bump version, commit, tag, and push (usage: task release -- 0.2.0)"
+    cmd: node build/release.mjs {{.CLI_ARGS}}

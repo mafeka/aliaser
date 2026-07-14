@@ -11,7 +11,7 @@
     "build": "vite build",
     "test": "vitest",
     "test:run": "vitest run",
-    "build:firefox": "vite build && node scripts/build-firefox.mjs"
+    "build:firefox": "vite build && node build/build-firefox.mjs"
   },
   "keywords": [],
   "author": "",
